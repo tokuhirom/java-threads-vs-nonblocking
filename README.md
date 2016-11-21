@@ -1,5 +1,7 @@
 Java performance: threads vs non-blocking I/O
 
+<img src="graph.png">
+
 # Servers
 
 2 scaleway’s baremetal instances for client/server.
