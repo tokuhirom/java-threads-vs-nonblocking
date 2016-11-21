@@ -74,6 +74,7 @@ Running 10s test @ http://10.1.65.237:8080/
   304142 requests in 10.10s, 11.60MB read
 Requests/sec:  30115.55
 Transfer/sec:      1.15MB
+
 $ wrk --latency -t 4 -c 100 -d 10s http://10.1.65.237:8080/
 Running 10s test @ http://10.1.65.237:8080/
   4 threads and 100 connections
@@ -88,6 +89,7 @@ Running 10s test @ http://10.1.65.237:8080/
   915440 requests in 10.10s, 34.92MB read
 Requests/sec:  90643.83
 Transfer/sec:      3.46MB
+
 $ wrk --latency -t 4 -c 1000 -d 10s http://10.1.65.237:8080/
 Running 10s test @ http://10.1.65.237:8080/
   4 threads and 1000 connections
@@ -102,6 +104,7 @@ Running 10s test @ http://10.1.65.237:8080/
   859191 requests in 10.06s, 32.78MB read
 Requests/sec:  85401.88
 Transfer/sec:      3.26MB
+
 $ wrk --latency -t 4 -c 10000 -d 10s http://10.1.65.237:8080/
 Running 10s test @ http://10.1.65.237:8080/
   4 threads and 10000 connections
@@ -119,65 +122,138 @@ Requests/sec:  70375.82
 Transfer/sec:      2.68MB
 ```
 
+## spring boot + Apache Tomcat/8.5.6
 
-## spring boot/tomcat
-https://d2mxuefqeaa7sj.cloudfront.net/s_5B5F57F08A4E395102D430A9A6F7EAC8E79ECAA7363B9CF937372F24FB100B1C_1479700720689_file.png
+```
+$ wrk -t 4 -c 10 -d 10s http://10.1.65.237:8080
+Running 10s test @ http://10.1.65.237:8080
+  4 threads and 10 connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency     4.06ms    6.73ms  81.36ms   89.43%
+    Req/Sec     0.93k   205.29     1.52k    68.25%
+  37071 requests in 10.01s, 4.07MB read
+Requests/sec:   3704.44
+Transfer/sec:    416.71KB
 
-    $ wrk --latency -t 4 -c 10 -d 10s http://10.1.65.237:8080/
-    Running 10s test @ http://10.1.65.237:8080/
-      4 threads and 10 connections
-      Thread Stats   Avg      Stdev     Max   +/- Stdev
-        Latency    15.63ms   33.29ms 303.30ms   90.45%
-        Req/Sec   497.78    310.11     1.38k    67.53%
-      Latency Distribution
-         50%    1.91ms
-         75%   12.58ms
-         90%   46.44ms
-         99%  170.47ms
-      19494 requests in 10.01s, 2.14MB read
-    Requests/sec:   1947.69
-    Transfer/sec:    219.09KB
-    $ wrk --latency -t 4 -c 100 -d 10s http://10.1.65.237:8080/
-    Running 10s test @ http://10.1.65.237:8080/
-      4 threads and 100 connections
-      Thread Stats   Avg      Stdev     Max   +/- Stdev
-        Latency    49.67ms   92.14ms 629.78ms   90.14%
-        Req/Sec     1.46k     0.89k    3.00k    54.08%
-      Latency Distribution
-         50%   12.87ms
-         75%   40.61ms
-         90%  138.72ms
-         99%  463.72ms
-      54152 requests in 10.01s, 5.95MB read
-    Requests/sec:   5409.71
-    Transfer/sec:    608.46KB
-    $ wrk --latency -t 4 -c 1000 -d 10s http://10.1.65.237:8080/
-    Running 10s test @ http://10.1.65.237:8080/
-      4 threads and 1000 connections
-      Thread Stats   Avg      Stdev     Max   +/- Stdev
-        Latency   115.72ms   48.65ms 700.31ms   82.61%
-        Req/Sec     2.10k   481.01     3.01k    70.96%
-      Latency Distribution
-         50%  115.65ms
-         75%  137.03ms
-         90%  158.99ms
-         99%  244.56ms
-      82885 requests in 10.08s, 9.09MB read
-    Requests/sec:   8224.93
-    Transfer/sec:      0.90MB
-    $ wrk --latency -t 4 -c 10000 -d 10s http://10.1.65.237:8080/
-    Running 10s test @ http://10.1.65.237:8080/
-      4 threads and 10000 connections
-      Thread Stats   Avg      Stdev     Max   +/- Stdev
-        Latency   772.04ms  294.37ms   1.76s    79.70%
-        Req/Sec     2.22k     0.95k    5.37k    69.97%
-      Latency Distribution
-         50%  798.78ms
-         75%  884.98ms
-         90%    1.03s
-         99%    1.39s
-      80974 requests in 10.08s, 8.88MB read
-      Socket errors: connect 0, read 0, write 0, timeout 1237
-    Requests/sec:   8034.93
-    Transfer/sec:      0.88MB
+$ wrk -t 4 -c 100 -d 10s http://10.1.65.237:8080
+Running 10s test @ http://10.1.65.237:8080
+  4 threads and 100 connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency    41.87ms   76.00ms 766.17ms   92.03%
+    Req/Sec     1.17k   234.21     1.68k    72.50%
+  46562 requests in 10.01s, 5.11MB read
+Requests/sec:   4653.67
+Transfer/sec:    523.40KB
 
+$ wrk -t 4 -c 1000 -d 10s http://10.1.65.237:8080
+Running 10s test @ http://10.1.65.237:8080
+  4 threads and 1000 connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency   160.96ms   91.36ms 890.29ms   81.16%
+    Req/Sec     1.56k   343.23     2.17k    77.25%
+  62010 requests in 10.08s, 6.80MB read
+Requests/sec:   6153.31
+Transfer/sec:    691.05KB
+
+$ wrk -t 4 -c 10000 -d 10s http://10.1.65.237:8080
+Running 10s test @ http://10.1.65.237:8080
+  4 threads and 10000 connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency   408.26ms  187.75ms   1.99s    77.53%
+    Req/Sec     2.72k   679.15     4.41k    72.61%
+  104787 requests in 10.07s, 11.49MB read
+  Socket errors: connect 0, read 0, write 0, timeout 920
+Requests/sec:  10402.99
+Transfer/sec:      1.14MB
+```
+
+## spring boot + jetty-9.3.14.v20161028
+
+```
+$ wrk -t 4 -c 10 -d 10s http://10.1.65.237:8080
+Running 10s test @ http://10.1.65.237:8080
+  4 threads and 10 connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency     3.99ms    7.06ms  95.74ms   89.37%
+    Req/Sec     1.13k   250.38     1.89k    68.50%
+  44807 requests in 10.01s, 5.00MB read
+Requests/sec:   4477.52
+Transfer/sec:    511.59KB
+
+$ wrk -t 4 -c 100 -d 10s http://10.1.65.237:8080
+Running 10s test @ http://10.1.65.237:8080
+  4 threads and 100 connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency    22.41ms   31.45ms 388.82ms   88.36%
+    Req/Sec     2.05k   582.89     3.25k    69.00%
+  81427 requests in 10.00s, 9.09MB read
+Requests/sec:   8139.89
+Transfer/sec:      0.91MB
+
+$ wrk -t 4 -c 1000 -d 10s http://10.1.65.237:8080
+Running 10s test @ http://10.1.65.237:8080
+  4 threads and 1000 connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency   119.23ms  118.64ms   1.89s    91.30%
+    Req/Sec     2.14k   482.57     4.14k    83.29%
+  82765 requests in 10.06s, 9.23MB read
+  Socket errors: connect 0, read 0, write 0, timeout 46
+Requests/sec:   8223.85
+Transfer/sec:      0.92MB
+
+$ wrk -t 4 -c 10000 -d 10s http://10.1.65.237:8080
+Running 10s test @ http://10.1.65.237:8080
+  4 threads and 10000 connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency   829.71ms  316.54ms   2.00s    71.95%
+    Req/Sec     1.93k   556.15     3.97k    71.96%
+  73008 requests in 10.02s, 8.15MB read
+  Socket errors: connect 0, read 0, write 0, timeout 2330
+Requests/sec:   7285.11
+Transfer/sec:    832.38KB
+```
+
+## spring boot + undertow(XNIO version 3.3.6.Final, XNIO NIO Implementation Version 3.3.6.Final)
+
+```
+$ wrk -t 4 -c 10 -d 10s http://10.1.65.237:8080
+Running 10s test @ http://10.1.65.237:8080
+  4 threads and 10 connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency     3.23ms    5.91ms  88.99ms   90.62%
+    Req/Sec     1.20k   506.87     2.79k    71.50%
+  47651 requests in 10.00s, 6.41MB read
+Requests/sec:   4763.39
+Transfer/sec:    655.90KB
+
+$ wrk -t 4 -c 100 -d 10s http://10.1.65.237:8080
+Running 10s test @ http://10.1.65.237:8080
+  4 threads and 100 connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency     8.13ms    6.58ms 107.34ms   89.65%
+    Req/Sec     3.49k   481.19     4.72k    73.00%
+  138913 requests in 10.00s, 18.68MB read
+Requests/sec:  13889.73
+Transfer/sec:      1.87MB
+
+$ wrk -t 4 -c 1000 -d 10s http://10.1.65.237:8080
+Running 10s test @ http://10.1.65.237:8080
+  4 threads and 1000 connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency    57.35ms   21.15ms 490.43ms   86.76%
+    Req/Sec     4.21k   627.11     6.27k    87.75%
+  167418 requests in 10.06s, 22.51MB read
+Requests/sec:  16645.62
+Transfer/sec:      2.24MB
+
+$ wrk -t 4 -c 10000 -d 10s http://10.1.65.237:8080
+Running 10s test @ http://10.1.65.237:8080
+  4 threads and 10000 connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency   619.81ms  175.07ms   1.66s    75.36%
+    Req/Sec     2.54k   761.22     4.25k    67.86%
+  99102 requests in 10.06s, 13.33MB read
+  Socket errors: connect 0, read 0, write 0, timeout 813
+Requests/sec:   9848.78
+Transfer/sec:      1.32MB
+```
