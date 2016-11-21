@@ -15,56 +15,12 @@ Java performance: threads vs non-blocking I/O
   
 # Benchmarking code
 ## netty based vert.x server
-    package com.example;
-    
-    import io.vertx.rxjava.core.Vertx;
-    import io.vertx.rxjava.core.http.HttpServer;
-    import io.vertx.rxjava.ext.web.Router;
-    import io.vertx.rxjava.ext.web.RoutingContext;
-    
-    public class VertxServer {
-        public static void main(String[] args) {
-            Vertx vertx = Vertx.vertx();
-            HttpServer httpServer = vertx.createHttpServer();
-            Router router = Router.router(vertx);
-            router.route("/").handler(c -> {
-                c.response().end("OK");
-            });
-            httpServer.requestHandler(router::accept)
-                    .listen(8080);
-        }
-    } 
 
+See [vertx/](https://github.com/tokuhirom/java-threads-vs-nonblocking/tree/master/vertx) directory.
 
 ## spring-boot based tomcat threading server
-    package com.example;
-    
-    import org.springframework.web.bind.annotation.GetMapping;
-    import org.springframework.web.bind.annotation.RestController;
-    import org.springframework.boot.SpringApplication;
-    import org.springframework.boot.autoconfigure.SpringBootApplication;
-    
-    @SpringBootApplication
-    public class DemoApplication {
-          public static void main(String[] args) {
-                  SpringApplication.run(DemoApplication.class, args);
-          }
-          
-          @RestController
-          @Slf4j
-          public static class RootController {
-              @GetMapping("/")
-              public String proxy() {
-                  return "OK";
-              }
-          }
-    }
 
-With following configuration:
-
-    server.tomcat.min-spare-threads=10000
-    server.tomcat.max-threads=10000
-
+See [spring-boot/](https://github.com/tokuhirom/java-threads-vs-nonblocking/tree/master/spring-boot) directory.
 
 # Server configuration
 ## `/etc/security/limits.conf` 
