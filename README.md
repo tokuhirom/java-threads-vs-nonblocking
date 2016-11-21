@@ -259,3 +259,68 @@ Running 10s test @ http://10.1.65.237:8080
 Requests/sec:   9848.78
 Transfer/sec:      1.32MB
 ```
+
+## undertow's nonblocking API
+
+```
+$ wrk --latency -t 4 -c 10 http://10.1.65.237:8084/
+Running 10s test @ http://10.1.65.237:8084/
+  4 threads and 10 connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency   319.08us  734.22us  37.87ms   99.29%
+    Req/Sec     7.03k   783.58     8.22k    74.75%
+  Latency Distribution
+     50%  247.00us
+     75%  273.00us
+     90%  466.00us
+     99%  649.00us
+  282656 requests in 10.10s, 36.93MB read
+Requests/sec:  27987.41
+Transfer/sec:      3.66MB
+
+$ wrk --latency -t 4 -c 100 http://10.1.65.237:8084/
+Running 10s test @ http://10.1.65.237:8084/
+  4 threads and 100 connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency     1.71ms    2.64ms  99.68ms   95.20%
+    Req/Sec    18.40k     5.54k   48.12k    72.07%
+  Latency Distribution
+     50%    1.14ms
+     75%    1.93ms
+     90%    2.81ms
+     99%   11.45ms
+  733901 requests in 10.10s, 95.89MB read
+Requests/sec:  72666.07
+Transfer/sec:      9.49MB
+
+$ wrk --latency -t 4 -c 1000 http://10.1.65.237:8084/
+Running 10s test @ http://10.1.65.237:8084/
+  4 threads and 1000 connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency    12.06ms   11.20ms 278.07ms   63.00%
+    Req/Sec    21.24k     5.60k   33.12k    67.42%
+  Latency Distribution
+     50%   13.32ms
+     75%   15.58ms
+     90%   21.76ms
+     99%   33.35ms
+  836630 requests in 10.06s, 109.31MB read
+Requests/sec:  83186.92
+Transfer/sec:     10.87MB
+
+$ wrk --latency -t 4 -c 10000 http://10.1.65.237:8084/
+Running 10s test @ http://10.1.65.237:8084/
+  4 threads and 10000 connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency   112.85ms  125.90ms   1.85s    83.34%
+    Req/Sec    24.85k     5.46k   40.18k    72.94%
+  Latency Distribution
+     50%  112.54ms
+     75%  172.99ms
+     90%  297.21ms
+     99%  419.14ms
+  960146 requests in 10.10s, 125.45MB read
+  Socket errors: connect 0, read 0, write 0, timeout 1
+Requests/sec:  95101.59
+Transfer/sec:     12.43MB
+```
