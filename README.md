@@ -20,7 +20,7 @@ See [vertx/](https://github.com/tokuhirom/java-threads-vs-nonblocking/tree/maste
 
 ## spring-boot based tomcat threading server
 
-See [spring-boot/](https://github.com/tokuhirom/java-threads-vs-nonblocking/tree/master/spring-boot) directory.
+See [spring-boot-tomcat/](https://github.com/tokuhirom/java-threads-vs-nonblocking/tree/master/spring-boot-tomcat/) directory.
 
 # Server configuration
 ## `/etc/security/limits.conf` 
