@@ -218,46 +218,67 @@ Transfer/sec:    832.38KB
 ## spring boot + undertow(XNIO version 3.3.6.Final, XNIO NIO Implementation Version 3.3.6.Final)
 
 ```
-$ wrk -t 4 -c 10 -d 10s http://10.1.65.237:8080
-Running 10s test @ http://10.1.65.237:8080
+
+$ wrk --latency -t 4 -c 10 http://10.1.65.237:8083/
+Running 10s test @ http://10.1.65.237:8083/
   4 threads and 10 connections
   Thread Stats   Avg      Stdev     Max   +/- Stdev
-    Latency     3.23ms    5.91ms  88.99ms   90.62%
-    Req/Sec     1.20k   506.87     2.79k    71.50%
-  47651 requests in 10.00s, 6.41MB read
-Requests/sec:   4763.39
-Transfer/sec:    655.90KB
+    Latency     1.58ms    3.26ms  48.99ms   92.38%
+    Req/Sec     2.45k   302.94     4.10k    71.82%
+  Latency Distribution
+     50%  642.00us
+     75%    0.91ms
+     90%    3.13ms
+     99%   17.95ms
+  97905 requests in 10.10s, 13.17MB read
+Requests/sec:   9693.80
+Transfer/sec:      1.30MB
 
-$ wrk -t 4 -c 100 -d 10s http://10.1.65.237:8080
-Running 10s test @ http://10.1.65.237:8080
+$ wrk --latency -t 4 -c 100 http://10.1.65.237:8083/
+Running 10s test @ http://10.1.65.237:8083/
   4 threads and 100 connections
   Thread Stats   Avg      Stdev     Max   +/- Stdev
-    Latency     8.13ms    6.58ms 107.34ms   89.65%
-    Req/Sec     3.49k   481.19     4.72k    73.00%
-  138913 requests in 10.00s, 18.68MB read
-Requests/sec:  13889.73
-Transfer/sec:      1.87MB
+    Latency     7.53ms    6.48ms  73.51ms   88.95%
+    Req/Sec     3.86k   534.99     8.25k    77.56%
+  Latency Distribution
+     50%    5.68ms
+     75%    8.33ms
+     90%   14.54ms
+     99%   35.42ms
+  154030 requests in 10.10s, 20.71MB read
+Requests/sec:  15252.01
+Transfer/sec:      2.05MB
 
-$ wrk -t 4 -c 1000 -d 10s http://10.1.65.237:8080
-Running 10s test @ http://10.1.65.237:8080
+$ wrk --latency -t 4 -c 1000 http://10.1.65.237:8083/
+Running 10s test @ http://10.1.65.237:8083/
   4 threads and 1000 connections
   Thread Stats   Avg      Stdev     Max   +/- Stdev
-    Latency    57.35ms   21.15ms 490.43ms   86.76%
-    Req/Sec     4.21k   627.11     6.27k    87.75%
-  167418 requests in 10.06s, 22.51MB read
-Requests/sec:  16645.62
-Transfer/sec:      2.24MB
+    Latency    59.42ms   11.92ms 284.13ms   80.96%
+    Req/Sec     4.21k   468.39     5.02k    70.68%
+  Latency Distribution
+     50%   57.46ms
+     75%   64.45ms
+     90%   72.67ms
+     99%   94.20ms
+  167089 requests in 10.10s, 22.47MB read
+Requests/sec:  16544.85
+Transfer/sec:      2.22MB
 
-$ wrk -t 4 -c 10000 -d 10s http://10.1.65.237:8080
-Running 10s test @ http://10.1.65.237:8080
+$ wrk --latency -t 4 -c 10000 http://10.1.65.237:8083/
+Running 10s test @ http://10.1.65.237:8083/
   4 threads and 10000 connections
   Thread Stats   Avg      Stdev     Max   +/- Stdev
-    Latency   619.81ms  175.07ms   1.66s    75.36%
-    Req/Sec     2.54k   761.22     4.25k    67.86%
-  99102 requests in 10.06s, 13.33MB read
-  Socket errors: connect 0, read 0, write 0, timeout 813
-Requests/sec:   9848.78
-Transfer/sec:      1.32MB
+    Latency   563.76ms  198.31ms   1.51s    74.58%
+    Req/Sec     3.58k     1.09k    8.77k    69.82%
+  Latency Distribution
+     50%  614.04ms
+     75%  659.90ms
+     90%  739.34ms
+     99%  961.14ms
+  136197 requests in 10.04s, 18.31MB read
+  Socket errors: connect 0, read 0, write 0, timeout 320
+Requests/sec:  13562.43
+Transfer/sec:      1.82MB
 ```
 
 ## undertow's nonblocking API
