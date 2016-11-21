@@ -51,18 +51,6 @@ Note: default value is following:
     812123
     root@client1:~# cat /proc/sys/kernel/threads-max
     63451
-# Monitoring
-
-Installed collectd. See http://www.tecmint.com/install-collectd-and-collectd-web-to-monitor-server-resources-in-linux/ for more details.
-
-    sudo apt-get install librrds-perl libjson-perl libhtml-parser-perl collectd libjson-perl
-    sudo service collectd start
-    cd /usr/local/ && git clone https://github.com/httpdss/collectd-web.git
-    chmod +x /usr/local/collectd-web/cgi-bin/graphdefs.cgi
-
-Then run
- `cd /usr/local/collectd-web/ && python runserver.py  0.0.0.0 8081` 
-
 
 # Benchmarking
 ## Warm up
@@ -70,67 +58,68 @@ Then run
 I ran `wrk --latency -t 4 -c 10 -d 10s http://10.1.65.237:8080/` before  running benchmark.
 
 ## vert.x
-https://d2mxuefqeaa7sj.cloudfront.net/s_5B5F57F08A4E395102D430A9A6F7EAC8E79ECAA7363B9CF937372F24FB100B1C_1479700773563_file.png
 
-    $ wrk --latency -t 4 -c 10 -d 10s http://10.1.65.237:8080/
-    Running 10s test @ http://10.1.65.237:8080/
-      4 threads and 10 connections
-      Thread Stats   Avg      Stdev     Max   +/- Stdev
-        Latency   362.19us  506.86us  19.42ms   99.72%
-        Req/Sec     5.80k   238.09     6.45k    76.73%
-      Latency Distribution
-         50%  274.00us
-         75%  471.00us
-         90%  504.00us
-         99%  615.00us
-      233328 requests in 10.10s, 8.90MB read
-    Requests/sec:  23102.83
-    Transfer/sec:      0.88MB
-    
-    $ wrk --latency -t 4 -c 100 -d 10s http://10.1.65.237:8080/
-    Running 10s test @ http://10.1.65.237:8080/
-      4 threads and 100 connections
-      Thread Stats   Avg      Stdev     Max   +/- Stdev
-        Latency     3.98ms    1.00ms  18.48ms   92.73%
-        Req/Sec     6.31k     1.05k   24.18k    95.51%
-      Latency Distribution
-         50%    3.77ms
-         75%    3.86ms
-         90%    3.98ms
-         99%    7.68ms
-      251688 requests in 10.10s, 9.60MB read
-    Requests/sec:  24919.93
-    Transfer/sec:      0.95MB
-    
-    $ wrk --latency -t 4 -c 1000 -d 10s http://10.1.65.237:8080/
-    Running 10s test @ http://10.1.65.237:8080/
-      4 threads and 1000 connections
-      Thread Stats   Avg      Stdev     Max   +/- Stdev
-        Latency    39.40ms   16.87ms 438.85ms   95.99%
-        Req/Sec     6.30k   732.46     8.71k    84.25%
-      Latency Distribution
-         50%   38.01ms
-         75%   42.89ms
-         90%   43.38ms
-         99%   48.37ms
-      250749 requests in 10.08s, 9.57MB read
-    Requests/sec:  24875.10
-    Transfer/sec:      0.95MB
-    
-    $ wrk --latency -t 4 -c 10000 -d 10s http://10.1.65.237:8080/
-    Running 10s test @ http://10.1.65.237:8080/
-      4 threads and 10000 connections
-      Thread Stats   Avg      Stdev     Max   +/- Stdev
-        Latency   370.45ms   70.35ms   1.14s    85.33%
-        Req/Sec     6.46k     3.17k   19.24k    75.20%
-      Latency Distribution
-         50%  380.85ms
-         75%  389.71ms
-         90%  412.68ms
-         99%  556.16ms
-      248195 requests in 10.08s, 9.47MB read
-    Requests/sec:  24612.71
-    Transfer/sec:      0.94MB
+```
+$ wrk --latency -t 4 -c 10 -d 10s http://10.1.65.237:8080/
+Running 10s test @ http://10.1.65.237:8080/
+  4 threads and 10 connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency   276.27us  410.13us  14.86ms   99.63%
+    Req/Sec     7.59k   538.55     8.25k    71.46%
+  Latency Distribution
+     50%  240.00us
+     75%  259.00us
+     90%  291.00us
+     99%  511.00us
+  304142 requests in 10.10s, 11.60MB read
+Requests/sec:  30115.55
+Transfer/sec:      1.15MB
+$ wrk --latency -t 4 -c 100 -d 10s http://10.1.65.237:8080/
+Running 10s test @ http://10.1.65.237:8080/
+  4 threads and 100 connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency     1.26ms    2.65ms  95.28ms   99.13%
+    Req/Sec    22.96k     3.58k   56.96k    80.55%
+  Latency Distribution
+     50%    1.02ms
+     75%    1.41ms
+     90%    1.55ms
+     99%    3.20ms
+  915440 requests in 10.10s, 34.92MB read
+Requests/sec:  90643.83
+Transfer/sec:      3.46MB
+$ wrk --latency -t 4 -c 1000 -d 10s http://10.1.65.237:8080/
+Running 10s test @ http://10.1.65.237:8080/
+  4 threads and 1000 connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency    12.96ms   21.34ms 444.63ms   98.60%
+    Req/Sec    21.59k     2.47k   26.61k    88.75%
+  Latency Distribution
+     50%   10.06ms
+     75%   10.58ms
+     90%   16.53ms
+     99%   57.02ms
+  859191 requests in 10.06s, 32.78MB read
+Requests/sec:  85401.88
+Transfer/sec:      3.26MB
+$ wrk --latency -t 4 -c 10000 -d 10s http://10.1.65.237:8080/
+Running 10s test @ http://10.1.65.237:8080/
+  4 threads and 10000 connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency   116.25ms   80.43ms   1.92s    83.06%
+    Req/Sec    18.17k     3.27k   28.82k    74.81%
+  Latency Distribution
+     50%   97.88ms
+     75%  109.04ms
+     90%  217.10ms
+     99%  416.98ms
+  710776 requests in 10.10s, 27.11MB read
+  Socket errors: connect 0, read 0, write 0, timeout 10
+Requests/sec:  70375.82
+Transfer/sec:      2.68MB
+```
+
+
 ## spring boot/tomcat
 https://d2mxuefqeaa7sj.cloudfront.net/s_5B5F57F08A4E395102D430A9A6F7EAC8E79ECAA7363B9CF937372F24FB100B1C_1479700720689_file.png
 
