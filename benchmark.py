@@ -24,7 +24,7 @@ class Benchmarker:
 			print "Connections: %d" % connections
 			fname = "result/%s-%d.txt" % (self.port2name[port], connections)
 			with open(fname, 'w') as fh:
-				subprocess.check_call(self.mk_cmdline(100), stdout=fh, stderr=fh)
+				subprocess.check_call(self.mk_cmdline(connections), stdout=fh, stderr=fh)
 			with open(fname, 'r') as fh:
 				print fh.read()
 
