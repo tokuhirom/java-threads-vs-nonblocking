@@ -4,9 +4,10 @@ import sys
 import os
 
 class Benchmarker:
-	def __init__(self, host, port):
+	def __init__(self, host, port, port2name):
 		self.host = host
 		self.port = port
+		self.port2name = port2name
 
 	def mk_cmdline(self, connections):
 		return ['wrk', '--timeout', '10s', '--latency', '-t', '4', '-c', str(connections), self.url()]
@@ -21,7 +22,7 @@ class Benchmarker:
 		print "======> RUN <======="
 		for connections in [10, 100, 1000, 10000]:
 			print "Connections: %d" % connections
-			fname = "result/%s-%d.txt" % (port, connections)
+			fname = "result/%s-%d.txt" % (self.port2name[port], connections)
 			with open(fname, 'w') as fh:
 				subprocess.check_call(self.mk_cmdline(100), stdout=fh, stderr=fh)
 			with open(fname, 'r') as fh:
@@ -30,6 +31,11 @@ class Benchmarker:
 host = sys.argv[1]
 port = sys.argv[2]
 
-benchmarker = Benchmarker(host, port)
+benchmarker = Benchmarker(host, port, {
+	"8080": "vertx",
+	"8084": "undertow",
+	"8085": "jetty",
+	"8086": "tomcat"
+})
 benchmarker.run()
 
