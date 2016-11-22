@@ -9,5 +9,5 @@ for line in lines.split("\n"):
     m = re.search("""result/(.*)-(.*).txt:Requests/sec:\s*(\S*)""", line)
     impl = m.group(1)
     conn = m.group(2)
-    score = m.group(3)
-    print "%s,%s,%s" % (impl, conn, score)
+    score = float(m.group(3))
+    print "%s,%s connections,%.1f" % (impl, conn, score)

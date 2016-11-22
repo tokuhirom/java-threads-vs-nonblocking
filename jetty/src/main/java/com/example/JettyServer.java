@@ -3,6 +3,7 @@ package com.example;
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Request;
 import org.eclipse.jetty.server.Server;
+import org.eclipse.jetty.util.thread.QueuedThreadPool;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -10,9 +11,20 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class JettyServer {
+    private static final int PORT = 8085;
+    private static final int MIN_THREADS = 10000;
+    private static final int MAX_THREADS = 10000;
+    private static final int IDLE_TIMEOUT = 60 * 1000;
+
     public static void main(String[] args) throws Exception {
-        int port = 8085;
-        Server server = new Server(port);
+        Server server = new Server(PORT);
+
+        final QueuedThreadPool threadPool = server.getBean(QueuedThreadPool.class);
+        threadPool.setMinThreads(MIN_THREADS);
+        threadPool.setMaxThreads(MAX_THREADS);
+        threadPool.setIdleTimeout(IDLE_TIMEOUT);
+        threadPool.setName("benchmark");
+
         server.setHandler(new MyHandler());
         server.start();
         server.join();
