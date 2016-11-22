@@ -30,10 +30,20 @@ Note: default value is following:
 
 
 ## Other configuration values
+
+On Baremetal
+
     root@client1:~# cat /proc/sys/fs/file-max
     812123
     root@client1:~# cat /proc/sys/kernel/threads-max
     63451
+
+On VPS
+
+    root@vs:~# cat /proc/sys/fs/file-max
+    403702
+    root@vs:~# cat /proc/sys/kernel/threads-max
+    31543
 
 # Benchmarking method
 
