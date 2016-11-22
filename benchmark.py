@@ -33,6 +33,9 @@ port = sys.argv[2]
 
 benchmarker = Benchmarker(host, port, {
 	"8080": "vertx",
+	"8081": "spring-boot-tomcat",
+	"8082": "spring-boot-jetty",
+	"8083": "spring-boot-undertow",
 	"8084": "undertow",
 	"8085": "jetty",
 	"8086": "tomcat"
