@@ -75,3 +75,16 @@ I ran `wrk --latency -t 4 -c 10 -d 10s http://10.1.65.237:8080/` before  running
 
 See result/ for raw data.
 
+### VPS
+
+#### Default configuration
+
+    root@vsl:~# sysctl net.ipv4.ip_local_port_range
+    net.ipv4.ip_local_port_range = 32768	60999
+    root@vsl:~# sysctl net.ipv4.tcp_tw_reuse
+    net.ipv4.tcp_tw_reuse = 0
+    root@vsl:~# cat /proc/sys/fs/file-max
+    815928
+    root@vsl:~# cat /proc/sys/kernel/threads-max
+    63748
+
