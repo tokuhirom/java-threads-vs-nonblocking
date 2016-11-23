@@ -64,7 +64,6 @@ I ran `wrk --latency -t 4 -c 10 -d 10s http://10.1.65.237:8080/` before  running
     4 Dedicated x86 64bit Cores
     8GB Memory
     50GB SSD Disk
-    
     1 Flexible public IPv4
     300Mbit/s Internet bandwidth
     2.5Gbit/s Internal bandwidth
@@ -77,6 +76,14 @@ See result/ for raw data.
 
 ### VPS
 
+#### Spec
+
+    6 x86 64bit Cores
+    8GB Memory
+    200GB SSD Disk
+    1 Flexible public IPv4
+    200Mbit/s Unmetered bandwidth
+
 #### Default configuration
 
     root@vsl:~# sysctl net.ipv4.ip_local_port_range
@@ -87,7 +94,6 @@ See result/ for raw data.
     815928
     root@vsl:~# cat /proc/sys/kernel/threads-max
     63748
-
 
 ### Score
 
