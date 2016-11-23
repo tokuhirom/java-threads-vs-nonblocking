@@ -54,7 +54,7 @@ benchmarker = Benchmarker(ip, port, {
 	"8085": "jetty",
 	"8086": "tomcat"
 }, {
-	'163.172.184.153': 'vps'
+	'10.3.140.135': 'vps'
 })
 benchmarker.run()
 
