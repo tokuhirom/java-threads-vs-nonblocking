@@ -71,7 +71,7 @@ I ran `wrk --latency -t 4 -c 10 -d 10s http://10.1.65.237:8080/` before  running
 
 ### Score
 
-<img src="graph.png">
+<img src="graph-baremetal.png">
 
 See result/ for raw data.
 
@@ -87,4 +87,11 @@ See result/ for raw data.
     815928
     root@vsl:~# cat /proc/sys/kernel/threads-max
     63748
+
+
+### Score
+
+<img src="graph-vps.png">
+
+See result/ for raw data.
 
