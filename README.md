@@ -53,6 +53,11 @@ I used `wrk` for benchmarking.
 
 I ran `wrk --latency -t 4 -c 10 -d 10s http://10.1.65.237:8080/` before  running benchmark.
 
+## Server side implementations
+
+ * Starts 10k threads for blocking model servers.
+ * Starts `NUM_CPU` threads for non-blocking model servers.
+
 ## Result
 
 ### Baremetal server
